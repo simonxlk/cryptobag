@@ -8,7 +8,7 @@
       <div class="holidings">
         {{ pcoin.amount }}
       </div>
-      <!--<div class="current-price">Current Price</div>-->
+      <!-- <div class="current-price">Current Price</div> -->
       <div class="average-cost">
         {{ averageCost | currency }}
       </div>
