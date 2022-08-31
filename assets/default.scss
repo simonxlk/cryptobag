@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,700;1,800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  scroll-behavior: smooth;
+}
+img {max-width:100%;}
+// app transitions
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.5s;
+}
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
+
+.app {
+  background-color: #1b1b3a;
+  min-height: 100vh;
+  color:#fff;
+}
+
+.button {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+  padding: 10px 30px;
+  background-color: #36BC07;
+  border: none;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease all;
+  font-size:24px;
+  &:hover {
+    background-color: #226d07;
+  }
+}
+
+.button-light {
+  background-color: transparent;
+  border: 1px solid #fff;
+  text-decoration: none;
+  color: #fff;
+  font-size:24px;
+  padding: 10px 30px;
+  border-radius: 6px;
+  margin:10px 20px;
+  cursor: pointer;
+  transition: 0.3s ease all;
+
+  &:hover {
+    background-color: #226d07;
+  }
+}
+.sm-button-light {
+  background-color: transparent;
+  border: 1px solid #7f7c9b;
+  text-decoration: none;
+  color: #fff;
+  font-size:18px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  margin:10px 20px;
+  cursor: pointer;
+  transition: 0.3s ease all;
+
+  &:hover {
+    background-color: #7f7c9b;
+    color:#1b1b3a;
+  }
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
