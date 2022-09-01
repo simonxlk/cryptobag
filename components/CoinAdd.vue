@@ -8,7 +8,7 @@
         <div class="name-box">{{ coin.name }}</div>
       </div>
       <div class="coin-data">{{ priceNumber | currency }}</div>
-      <div class="coin-data">
+      <div class="coin-data sm-hide">
         <span v-if="coin.price_change_percentage_24h >= 0" class="green-text">
         +{{ coin.price_change_percentage_24h.toFixed(2) }}
         </span>
