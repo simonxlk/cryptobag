@@ -22,7 +22,7 @@
             <div class="coin-data">
               24h change
             </div>
-            <div class="coin-data">
+            <div class="coin-data sm-hide">
               7d change
             </div>
             <div class="info-icons">
@@ -122,10 +122,16 @@ export default {
     display:flex;
     justify-content:flex-start;
     align-items: center;
+    @media (max-width: 600px) {
+      width:40%;
+    }
   }
   .coin-data {
     width:20%;
     text-align: center;
+    @media (max-width: 600px) {
+      width:25%;
+    }
   }
   .info-icons {
     text-align: center;

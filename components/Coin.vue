@@ -16,7 +16,7 @@
                 {{ coin.price_change_percentage_24h.toFixed(2) }}
               </span>
             </div>
-            <div class="coin-data">
+            <div class="coin-data sm-hide">
               <span v-if="coin.price_change_percentage_7d_in_currency >= 0" class="green-text">
                 +{{ coin.price_change_percentage_7d_in_currency.toFixed(2) }}
               </span>

@@ -116,12 +116,15 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
  .form-container{
     width:600px;
     margin:0 auto;
     padding:80px 30px 30px;
     text-align: center;
+    @media (max-width: 800px) {
+      width:100%;
+    }
   }
   h1{
     margin-bottom:40px;
@@ -134,6 +137,9 @@ export default {
     padding: 10px;
     margin: 0 10px;
     font-size: 16px;
+    @media (max-width: 600px) {
+      width:300px;
+    }
   }
   .form-group {
     padding-bottom:25px;
@@ -153,5 +159,8 @@ export default {
     width: 400px;
     margin: 0 auto;
     text-align: left;
+    @media (max-width: 600px) {
+      width:300px;
+    }
   }
 </style>

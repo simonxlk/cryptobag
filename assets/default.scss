@@ -74,8 +74,13 @@ img {max-width:100%;}
     color:#1b1b3a;
   }
 }
-
 .container {
   max-width: 900px;
   margin: 0 auto;
+}
+.sm-hide {
+  display: block;
+  @media (max-width: 600px) {
+    display: none;
+  }
 }
