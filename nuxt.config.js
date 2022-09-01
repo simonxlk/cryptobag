@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'cryptoStasch',
+    title: 'cryptoBag',
     htmlAttrs: {
       lang: 'en'
     },
@@ -62,5 +62,9 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
+
+  // target
+  target: 'static',
+  
 }
