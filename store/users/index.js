@@ -8,7 +8,7 @@ const state = () => ({
 export const mutations = {
     SET_USER: (state, account) => {
         state.user = account;
-    },
+    }
 }
 
 export const actions = {
@@ -30,9 +30,6 @@ export const actions = {
         } catch(error) {
             throw error;
         }
-    }, 
-    // storeList({ commit }, coinList) {
-    //     commit('SET_COINS', coinList)
-    // }
+    }
 };
 

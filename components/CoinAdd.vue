@@ -75,6 +75,7 @@
         collectAmount: 0,
         collectPrice: 0,
         collectCost: 0,
+        collectImg: '',
         confirmBox: false,
         amountWarning: false
 
@@ -85,7 +86,7 @@
       this.isOpen = !this.isOpen
       },
       sendCoinInputs() {
-        this.$emit('changeData', {x: this.coin.id, y: this.collectAmount, z: this.collectCost})
+        this.$emit('changeData', {x: this.coin.id, y: this.collectAmount, z: this.collectCost, i: this.collectImg})
       },
       calculateTotal() {
         if(this.collectAmount > 0 && this.collectPrice > 0) {
@@ -114,6 +115,7 @@
       this.priceNumber = this.coin.current_price * 1
       this.mcNumber = this.coin.market_cap * 1
       this.collectPrice = this.priceNumber
+      this.collectImg = this.coin.image
     }
   }
 </script>
@@ -158,10 +160,10 @@
     font-size: 14px;
   }
   label {
-    display: inline-block;
+    display: block;
     width: auto;
     margin: 0 5px 0 0;
-    text-align: left;
+    text-align: center;
   }
   .input-row {
     display:flex; 

@@ -1,12 +1,13 @@
 <template>
   <div class="icoin-container">
-    <!--<p>{{ pcoin.amount }} {{ pcoin.id }} at an average cost of </p>-->
     <div class="coin-row">
       <div class="pcoin-name">
-        {{ pcoin.id }}
+        <div class="pcoin-logo"><img :src="pcoin.img"></div>
+        <div class="pcoin-name-name">{{ pcoin.id }}</div>
       </div>
-      <div class="holidings">
-        {{ pcoin.amount }}
+      <div class="holdings">
+        <div class="holding-amount">{{ pcoin.amount }}</div>
+        <div class="pcoin-value">{{ coinValue | currency }}</div>
       </div>
       <!-- <div class="current-price">Current Price</div> -->
       <div class="average-cost">
@@ -25,7 +26,8 @@ export default {
     return {
       coinAmount: 0,
       coinCost: 0,
-      averageCost: 0
+      averageCost: 0,
+      coinValue: 0
     }
   },
   mounted() {
@@ -41,6 +43,7 @@ export default {
       const cost = this.coinCost
       const amount = this.coinAmount
       this.averageCost = cost / amount
+      this.coinValue = this.averageCost * amount
     }
   }
 
@@ -51,5 +54,24 @@ export default {
   .icoin-container {
     padding:10px 0;
     border-bottom: 1px dotted #7f7c9b;
+  }
+  .pcoin-name {
+    display:flex;
+    align-items: center;
+  }
+  .pcoin-logo {
+    width:40px;
+    height:40px;
+    margin-right:10px;
+  }
+  .holdings {
+    text-align:center;
+  }
+  .holding-amount {
+    font-size: 18px;
+  }
+  .pcoin-value {
+    color:#7f7c9b;
+    font-size: 14px;
   }
 </style>

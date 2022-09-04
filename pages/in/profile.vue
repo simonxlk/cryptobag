@@ -3,24 +3,20 @@
     <div class="container">
       <Nav />
       
-      <!--<p>{{ myUser.email }}</p>
-      <p>{{ myUser.id }}</p>
-      <a @click="logout">Logout</a>-->
-      
       <div v-if="gotData">
         <div class="port-container">
           <div class="collection-hd">
             Your collection
+            <!--{{ netWorth | currency }}-->
           </div>
           <div class="coin-row row-heading">
             <div class="pcoin-name">Coin</div>
             <div class="holdings">Holdings</div>
             <!--<div class="current-price">Current Price</div>-->
-            <div class="average-cost">average Cost</div>
+            <div class="average-cost">avg Cost</div>
           </div>
           <div v-for="icoin in gotData.coinlist" :key="icoin.id">
             <DisplayPortfolio :pcoin="icoin" />
-            <!--<p>you have {{ icoin.amount }} {{ icoin.id }} at an average cost of {{ icoin.average_cost }}</p>-->
           </div>
         </div>
         <div class="add-more">Add some more coins</div>
@@ -45,7 +41,7 @@
               <div class="coin-data">
                 24h change
               </div>
-              <div class="coin-data">
+              <div class="coin-data sm-hide">
                 7d change
               </div>
               <div class="info-icons">
@@ -77,12 +73,14 @@ export default {
       coinToAdd: {
         id: '',
         amount: 0,
-        cost: 0
+        cost: 0,
+        img: ''
       },
       new_coin: [],
       gotData: null,
       noData: false,
-      defaultList: null
+      defaultList: null, 
+      netWorth: 0
     }
   },
   async fetch () {
@@ -105,11 +103,12 @@ export default {
       const id = this.coinToAdd.id
       const amount = this.coinToAdd.amount
       const cost = this.coinToAdd.cost
+      const img = this.coinToAdd.img
       // Check if there's already an entry for this `id` and do nothing in that case:
       if (tempStore.find(cursor => cursor.id === id)) return;
       
       // Here we are not reusing a single object, but creating a new one on each iteration:
-      tempStore.push({ id, amount, cost });
+      tempStore.push({ id, amount, cost, img });
       // Add a new document in collection "users"
       db.collection("users").doc(this.myUser.id).set({  
         coinlist: tempStore 
@@ -142,6 +141,7 @@ export default {
       this.coinToAdd.id = collected.x
       this.coinToAdd.amount = collected.y
       this.coinToAdd.cost = collected.z
+      this.coinToAdd.img = collected.i
       //invoke adding the coin to the database
       this.addUser()
     }
@@ -149,7 +149,6 @@ export default {
   mounted() {
     this.myUser.email = this.$store.state.users.user.email
     this.myUser.id = this.$store.state.users.user.uid
-
     //invoke getUser
     this.getUser()
   }
@@ -177,7 +176,7 @@ export default {
     text-align: center;
   }
   .port-container {
-    margin:30px 0 200px;
+    margin:30px 20px 200px;
     padding:0 20px;
     background-color: #2d2c50;
     border-radius: 10px;
