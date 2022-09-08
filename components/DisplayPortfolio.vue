@@ -44,6 +44,11 @@ export default {
       const amount = this.coinAmount
       this.averageCost = cost / amount
       this.coinValue = this.averageCost * amount
+      //call function to send the coin value
+      this.commitValue()
+    },
+    commitValue() {
+      this.$store.commit("users/SET_WORTH", this.coinValue)
     }
   }
 

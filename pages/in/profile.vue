@@ -6,8 +6,7 @@
       <div v-if="gotData">
         <div class="port-container">
           <div class="collection-hd">
-            Your collection
-            <!--{{ netWorth | currency }}-->
+            {{ netWorth | currency }}
           </div>
           <div class="coin-row row-heading">
             <div class="pcoin-name">Coin</div>
@@ -79,8 +78,8 @@ export default {
       new_coin: [],
       gotData: null,
       noData: false,
-      defaultList: null, 
-      netWorth: 0
+      defaultList: null,
+      resetValue: 0
     }
   },
   async fetch () {
@@ -151,6 +150,15 @@ export default {
     this.myUser.id = this.$store.state.users.user.uid
     //invoke getUser
     this.getUser()
+  },
+  beforeDestroy() {
+    //reset the networth to avoid double counting
+    this.$store.commit("users/RESET_WORTH", this.resetValue)
+  },
+  computed: {
+    netWorth() {
+      return this.$store.state.users.userWorth
+    }
   }
 }
 </script>

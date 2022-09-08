@@ -1,13 +1,20 @@
 import { auth } from '@/services/firebase';
 import Cookie from 'js-cookie';
 
-const state = () => ({
+export const state = () => ({
     user: null,
+    userWorth: 0,
 });
 
 export const mutations = {
     SET_USER: (state, account) => {
         state.user = account;
+    },
+    SET_WORTH: (state, newValue) => {
+        state.userWorth += newValue
+    },
+    RESET_WORTH: (state, reset) => {
+        state.userWorth = reset
     }
 }
 
