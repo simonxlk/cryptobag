@@ -12,10 +12,10 @@
             <div class="pcoin-name">Coin</div>
             <div class="holdings">Holdings</div>
             <!--<div class="current-price">Current Price</div>-->
-            <div class="average-cost">avg Cost</div>
+            <div class="average-cost av-heading">avg Cost</div>
           </div>
           <div v-for="icoin in gotData.coinlist" :key="icoin.id">
-            <DisplayPortfolio :pcoin="icoin" />
+            <DisplayPortfolio :pcoin="icoin" v-on:changeData="removeCoin($event)" />
           </div>
         </div>
         <div class="add-more">Add some more coins</div>
@@ -79,7 +79,8 @@ export default {
       gotData: null,
       noData: false,
       defaultList: null,
-      resetValue: 0
+      resetValue: 0,
+      coinToRemove: ''
     }
   },
   async fetch () {
@@ -103,21 +104,60 @@ export default {
       const amount = this.coinToAdd.amount
       const cost = this.coinToAdd.cost
       const img = this.coinToAdd.img
-      // Check if there's already an entry for this `id` and do nothing in that case:
-      if (tempStore.find(cursor => cursor.id === id)) return;
-      
-      // Here we are not reusing a single object, but creating a new one on each iteration:
-      tempStore.push({ id, amount, cost, img });
-      // Add a new document in collection "users"
+      // Check if there's already an entry for this `id` and do nothing in that case
+      const matchFinder = tempStore.find(a => a.id === id)
+      if (matchFinder) {
+        const oldAmount = matchFinder.amount * 1
+        const oldCost = matchFinder.cost * 1
+        const numCost = cost * 1
+        const numAmount = amount * 1
+        const combinedAmount = oldAmount + numAmount
+        const combinedCost = oldCost + numCost
+        //remove the old one from temporary store
+        const newStore = tempStore.filter(coin => coin.id != matchFinder.id) 
+        //add the repopulated object
+        newStore.push({ id, amount: combinedAmount, cost: combinedCost, img })
+        db.collection("users").doc(this.myUser.id).set({  
+          coinlist: newStore 
+        })
+        .then(() => {
+            //update the list
+            this.getUser()
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });
+      } 
+      else {  //if the coin doesn't exist
+        // Here we are not reusing a single object, but creating a new one on each iteration:
+        tempStore.push({ id, amount, cost, img });
+        // Add a new document in collection "users"
+        db.collection("users").doc(this.myUser.id).set({  
+          coinlist: tempStore 
+        })
+        .then(() => {
+            //update the list
+            this.getUser()
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });
+      }
+    },
+    removeCoin(removeId) {
+      //this.coinToRemove = removeId
+      const tempStore = this.gotData.coinlist
+      //return all the coins that don't match the sent id
+      const newStore = tempStore.filter(coin => coin.id != removeId)
       db.collection("users").doc(this.myUser.id).set({  
-        coinlist: tempStore 
+        coinlist: newStore 
       })
       .then(() => {
-          //update the list
-          this.getUser()
+        //update the list
+        this.getUser()
       })
       .catch((error) => {
-          console.error("Error writing document: ", error);
+        console.error("Error writing document: ", error);
       });
     },
     //retrieve User's coin data from the users collection
@@ -209,4 +249,5 @@ export default {
   .pcoin-name{flex:1;}
   .holdings{flex:1; text-align:center;}
   .average-cost{flex:1; text-align:right;}
+  .av-heading{margin-right:20px;}
 </style>

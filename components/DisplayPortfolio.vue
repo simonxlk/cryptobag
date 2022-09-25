@@ -13,6 +13,16 @@
       <div class="average-cost">
         {{ averageCost | currency }}
       </div>
+      <div class="remove red-text" @click="showMe = !showMe">
+        X
+      </div>
+    </div>
+    <div v-show="showMe" class="remove-details">
+      <p>Remove this coin from your portfolio?</p>
+      <div class="remove-row">
+        <div @click="sendCoinRemove()" class="remove-yes">Remove</div>
+        <div @click="showMe = false" class="remove-no">Cancel</div>
+      </div>
     </div>
   </div>
   
@@ -27,7 +37,8 @@ export default {
       coinAmount: 0,
       coinCost: 0,
       averageCost: 0,
-      coinValue: 0
+      coinValue: 0,
+      showMe: false
     }
   },
   mounted() {
@@ -49,7 +60,10 @@ export default {
     },
     commitValue() {
       this.$store.commit("users/SET_WORTH", this.coinValue)
-    }
+    },
+    sendCoinRemove() {
+        this.$emit('changeData', this.pcoin.id)
+      }
   }
 
 }
@@ -78,5 +92,41 @@ export default {
   .pcoin-value {
     color:#7f7c9b;
     font-size: 14px;
+  }
+  .remove {
+    padding:4px 12px;
+    background-color:#1b1b3a;
+    margin-left: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .remove-details {
+    text-align: center;
+    padding: 10px;
+    p {
+      color:#ff9933;
+    }
+  }
+  .remove-row {
+    display:flex;
+    justify-content: center;
+  }
+  .remove-yes {
+    margin: 5px 20px; 
+    display: inline-block;
+    background-color:#ff3300;
+    padding:3px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size:14px;
+  }
+  .remove-no {
+    margin: 5px 20px; 
+    display: inline-block;
+    border:1px solid #39ac39;
+    padding:3px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size:14px;
   }
 </style>
